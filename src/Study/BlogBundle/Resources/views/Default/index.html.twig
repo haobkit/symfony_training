@@ -1,0 +1,19 @@
+{% extends "StudyBlogBundle::layout.html.twig" %}
+
+{% block main_content %}
+	Blog Page
+	<pre>
+	{#{ dump(blogs) }#}
+	</pre>
+	<a href="{{ path('study_add_blog') }}" class="add_blog">Add Blog</a>
+	<ul class="list_blog">
+		{% for blog in blogs %}
+			<li>
+				<h2>{{ blog.title }}</h2>
+				<p>{{ blog.createdDate.date|date() }}</p>
+				<p>{{ blog.updatedDate.date|date() }}</p>
+				<a href="{{ path('study_edit_blog',{'id': blog.id}) }}" class="edit_blog">Edit</a>
+			</li>
+		{% endfor %}
+	</ul>
+{% endblock %}

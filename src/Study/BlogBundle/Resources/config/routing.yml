@@ -1,0 +1,11 @@
+study_add_blog:
+    pattern:  /blog/add
+    defaults: { _controller: StudyBlogBundle:Default:create }
+
+study_edit_blog:
+    pattern:  /blog/edit/{id}
+    defaults: { _controller: StudyBlogBundle:Default:edit }
+    
+study_home_blog:
+    pattern:  /blog
+    defaults: { _controller: StudyBlogBundle:Default:index }
