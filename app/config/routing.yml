@@ -1,0 +1,4 @@
+study_blog:
+    resource: "@StudyBlogBundle/Resources/config/routing.yml"
+    prefix:   /
+
