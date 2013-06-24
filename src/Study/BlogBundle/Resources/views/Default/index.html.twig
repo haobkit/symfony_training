@@ -13,6 +13,7 @@
 				<p>{{ blog.createdDate.date|date() }}</p>
 				<p>{{ blog.updatedDate.date|date() }}</p>
 				<a href="{{ path('study_edit_blog',{'id': blog.id}) }}" class="edit_blog">Edit</a>
+				<a href="{{ path('study_delete_blog',{'id': blog.id}) }}" class="delete_blog">Delete</a>
 			</li>
 		{% endfor %}
 	</ul>

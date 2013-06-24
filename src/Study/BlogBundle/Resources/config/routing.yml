@@ -5,6 +5,10 @@ study_add_blog:
 study_edit_blog:
     pattern:  /blog/edit/{id}
     defaults: { _controller: StudyBlogBundle:Default:edit }
+
+study_delete_blog:
+    pattern:  /blog/delete/{id}
+    defaults: { _controller: StudyBlogBundle:Default:delete }
     
 study_home_blog:
     pattern:  /blog

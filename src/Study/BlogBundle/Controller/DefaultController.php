@@ -64,4 +64,22 @@ class DefaultController extends Controller
 			'form'  => 	$form->createView()
 		));
 	}
+	
+	public function deleteAction($id)
+	{
+		$repository = $this->getDoctrine()
+				->getRepository('StudyBlogBundle:Blog');
+		$oBlog = $repository->find($id);
+		if(!$oBlog) {
+			throw $this->createNotFoundException(
+					"No product found for id" . $id
+			);
+		}
+		
+		$em = $this->getDoctrine()->getManager();
+		$em->remove($oBlog);
+		$em->flush();
+		
+		return $this->redirect($this->generateUrl('study_home_blog'));
+	}
 }
