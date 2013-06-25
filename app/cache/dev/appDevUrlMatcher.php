@@ -133,6 +133,52 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         }
 
+        if (0 === strpos($pathinfo, '/blog')) {
+            // study_add_blog
+            if ($pathinfo === '/blog/add') {
+                return array (  '_controller' => 'Study\\BlogBundle\\Controller\\DefaultController::createAction',  '_route' => 'study_add_blog',);
+            }
+
+            // study_edit_blog
+            if (0 === strpos($pathinfo, '/blog/edit') && preg_match('#^/blog/edit/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'study_edit_blog')), array (  '_controller' => 'Study\\BlogBundle\\Controller\\DefaultController::editAction',));
+            }
+
+            // study_delete_blog
+            if (0 === strpos($pathinfo, '/blog/delete') && preg_match('#^/blog/delete/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'study_delete_blog')), array (  '_controller' => 'Study\\BlogBundle\\Controller\\DefaultController::deleteAction',));
+            }
+
+            // study_home_blog
+            if ($pathinfo === '/blog') {
+                return array (  '_controller' => 'Study\\BlogBundle\\Controller\\DefaultController::indexAction',  '_route' => 'study_home_blog',);
+            }
+
+        }
+
+        if (0 === strpos($pathinfo, '/post')) {
+            // study_add_post
+            if ($pathinfo === '/post/add') {
+                return array (  '_controller' => 'Study\\BlogBundle\\Controller\\PostController::createAction',  '_route' => 'study_add_post',);
+            }
+
+            // study_edit_post
+            if (0 === strpos($pathinfo, '/post/edit') && preg_match('#^/post/edit/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'study_edit_post')), array (  '_controller' => 'Study\\BlogBundle\\Controller\\PostController::editAction',));
+            }
+
+            // study_delete_post
+            if (0 === strpos($pathinfo, '/post/delete') && preg_match('#^/post/delete/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'study_delete_post')), array (  '_controller' => 'Study\\BlogBundle\\Controller\\PostController::deleteAction',));
+            }
+
+            // study_home_post
+            if ($pathinfo === '/post') {
+                return array (  '_controller' => 'Study\\BlogBundle\\Controller\\PostController::indexAction',  '_route' => 'study_home_post',);
+            }
+
+        }
+
         // _welcome
         if (rtrim($pathinfo, '/') === '') {
             if (substr($pathinfo, -1) !== '/') {

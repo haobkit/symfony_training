@@ -13,3 +13,20 @@ study_delete_blog:
 study_home_blog:
     pattern:  /blog
     defaults: { _controller: StudyBlogBundle:Default:index }
+
+study_add_post:
+    pattern:  /post/add
+    defaults: { _controller: StudyBlogBundle:Post:create }
+
+study_edit_post:
+    pattern:  /post/edit/{id}
+    defaults: { _controller: StudyBlogBundle:Post:edit }
+
+study_delete_post:
+    pattern:  /post/delete/{id}
+    defaults: { _controller: StudyBlogBundle:Post:delete }
+    
+study_home_post:
+    pattern:  /post
+    defaults: { _controller: StudyBlogBundle:Post:index }
+
