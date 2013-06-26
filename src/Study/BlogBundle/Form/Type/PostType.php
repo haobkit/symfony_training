@@ -19,8 +19,8 @@ class PostType extends AbstractType
 		$builder->add('fullDescription', 'textarea');
 		$builder->add('viewed', 'integer');
 		$builder->add('author');
-		$builder->add('createdDate', 'date');
-		$builder->add('updatedDate', 'date');
+		$builder->add('createdDate', 'datetime');
+		$builder->add('updatedDate', 'datetime');
 		$builder->add('save', 'submit', array(
             'attr'  => array('class' => 'btn btn-success'),
         ));

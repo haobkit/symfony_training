@@ -7,7 +7,9 @@
 		{% for post in posts %}
 			<li>
 				<h2>{{ post.title }}</h2>
-                                <p>Category: {{ post.blog.title }}</p>
+				{% if post.blog is not null %}
+					<p>Blog: {{ post.blog.title }}</p>
+				{% endif %}
 				<p>Created Date: {{ post.createdDate.date|date() }}</p>
 				<p>Updated Date: {{ post.updatedDate.date|date() }}</p>
 				<a href="{{ path('study_edit_post',{'id': post.id}) }}" class="edit_blog btn btn-primary">Edit</a>

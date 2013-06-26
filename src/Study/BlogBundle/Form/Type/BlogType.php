@@ -12,8 +12,8 @@ class BlogType extends AbstractType
 	{
 		$builder->add('title');
 		$builder->add('description', 'textarea');
-		$builder->add('createdDate', 'date');
-		$builder->add('updatedDate', 'date');
+		$builder->add('createdDate', 'datetime');
+		$builder->add('updatedDate', 'datetime');
 		$builder->add('save', 'submit', array(
             'attr'  => array('class' => 'btn btn-success'),
         ));

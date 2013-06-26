@@ -6,8 +6,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Study\BlogBundle\Entity\BlogRepository")
  * @ORM\Table(name="blog")
+ * @ORM\HasLifecycleCallbacks()
  */
 
 class Blog
@@ -33,13 +34,13 @@ class Blog
 	
 	/**
 	 *
-	 * @ORM\Column(type="date")
+	 * @ORM\Column(name="created_date", type="datetime")
 	 */
 	protected $createdDate;
 	
 	/**
 	 *
-	 * @ORM\Column(type="date")
+	 * @ORM\Column(name="updated_date", type="datetime")
 	 */
 	protected $updatedDate;
 	
@@ -169,4 +170,21 @@ class Blog
     {
         return $this->posts;
     }
+	
+	/**
+	 * @ORM\PrePersist
+	 */
+	public function prePersist()
+	{
+		$this->createdDate = new \DateTime('now');
+		$this->updatedDate = new \DateTime('now');
+	}
+	
+	/**
+	 * @ORM\PreUpdate
+	 */
+	public function preUpdate()
+	{
+		$this->updatedDate = new \DateTime('now');
+	}
 }

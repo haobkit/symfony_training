@@ -13,7 +13,7 @@ class BlogController extends Controller
     {
 		$repository = $this->getDoctrine()
 				->getRepository('StudyBlogBundle:Blog');
-		$blogs = $repository->findAll();
+		$blogs = $repository->findAllOrderedByName();
 		//var_dump($blogs);
         return $this->render('StudyBlogBundle:Blog:index.html.twig', array(
 			'blogs'	=> $blogs

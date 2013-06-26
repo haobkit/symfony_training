@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  * @ORM\Table(name="post")
+ * @ORM\HasLifecycleCallbacks()
  */
 
 class Post
@@ -31,13 +32,13 @@ class Post
 	protected $title;
 	
 	/**
-	 * @ORM\Column(type="text")
+	 * @ORM\Column(name="short_description", type="text")
 	 * 
 	 */
 	protected $shortDescription;
 	
 	/**
-	 * @ORM\Column(type="text")
+	 * @ORM\Column(name="full_description", type="text")
 	 * 
 	 */
 	protected $fullDescription;
@@ -56,13 +57,13 @@ class Post
 	
 	/**
 	 *
-	 * @ORM\Column(type="date")
+	 * @ORM\Column(name="created_date", type="datetime")
 	 */
 	protected $createdDate;
 	
 	/**
 	 *
-	 * @ORM\Column(type="date")
+	 * @ORM\Column(name="updated_date",type="datetime")
 	 */
 	protected $updatedDate;
 	
@@ -232,4 +233,21 @@ class Post
     {
         return $this->blog;
     }
+	
+		/**
+	 * @ORM\PrePersist
+	 */
+	public function prePersist()
+	{
+		$this->createdDate = new \DateTime();
+		$this->updatedDate = new \DateTime();
+	}
+	
+	/**
+	 * @ORM\PreUpdate
+	 */
+	public function preUpdate()
+	{
+		$this->updatedDate = new \DateTime();
+	}
 }
