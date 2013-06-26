@@ -30,3 +30,18 @@ study_home_post:
     pattern:  /post
     defaults: { _controller: StudyBlogBundle:Post:index }
 
+study_add_user:
+    pattern:  /user/add
+    defaults: { _controller: StudyBlogBundle:User:create }
+
+study_edit_user:
+    pattern:  /user/edit/{id}
+    defaults: { _controller: StudyBlogBundle:User:edit }
+
+study_delete_user:
+    pattern:  /user/delete/{id}
+    defaults: { _controller: StudyBlogBundle:User:delete }
+    
+study_home_user:
+    pattern:  /user
+    defaults: { _controller: StudyBlogBundle:User:index }

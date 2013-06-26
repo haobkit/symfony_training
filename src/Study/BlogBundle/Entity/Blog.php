@@ -51,7 +51,12 @@ class Blog
      */
     protected $posts;
 	
-	
+	/**
+     * @ORM\Column(type="boolean")
+     */
+    protected $deleted;
+
+
     public function __construct()
     {
         $this->posts = new ArrayCollection();
@@ -176,6 +181,7 @@ class Blog
 	 */
 	public function prePersist()
 	{
+        $this->deleted = false;
 		$this->createdDate = new \DateTime('now');
 		$this->updatedDate = new \DateTime('now');
 	}
@@ -187,4 +193,27 @@ class Blog
 	{
 		$this->updatedDate = new \DateTime('now');
 	}
+
+    /**
+     * Set deleted
+     *
+     * @param boolean $deleted
+     * @return Blog
+     */
+    public function setDeleted($deleted)
+    {
+        $this->deleted = $deleted;
+    
+        return $this;
+    }
+
+    /**
+     * Get deleted
+     *
+     * @return boolean 
+     */
+    public function getDeleted()
+    {
+        return $this->deleted;
+    }
 }

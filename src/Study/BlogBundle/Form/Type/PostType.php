@@ -5,6 +5,7 @@ namespace Study\BlogBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Doctrine\ORM\EntityRepository;
 
 class PostType extends AbstractType
 {
@@ -14,9 +15,15 @@ class PostType extends AbstractType
 		$builder->add('blog','entity',array(
 			'class'	=> 'StudyBlogBundle:Blog',
 			'property'	=>	'title',
+            'query_builder' => function(EntityRepository $er)
+            {
+                return $er->createQueryBuilder('u')
+                    ->orderBy('u.title', 'ASC');
+            },
+            'empty_value' => 'Choose an option',
 		));
 		$builder->add('shortDescription', 'textarea');
-		$builder->add('fullDescription', 'textarea');
+		$builder->add('fullDescription', 'ckeditor');
 		$builder->add('viewed', 'integer');
 		$builder->add('author');
 		$builder->add('createdDate', 'datetime');

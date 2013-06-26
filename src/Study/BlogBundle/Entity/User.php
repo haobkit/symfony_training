@@ -7,13 +7,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass="Study\BlogBundle\Entity\BlogRepository")
- * @ORM\Table(name="blog")
+ * @ORM\Table(name="user")
  * @ORM\HasLifecycleCallbacks()
  */
 
-class Blog
+class User implements \Symfony\Component\Security\Core\User\UserInterface
 {
-	/**
+    /**
 	 * @ORM\Id
 	 * @ORM\Column(type="integer")
 	 * @ORM\GeneratedValue(strategy="AUTO")
@@ -181,6 +181,7 @@ class Blog
 	 */
 	public function prePersist()
 	{
+        $this->deleted = false;
 		$this->createdDate = new \DateTime('now');
 		$this->updatedDate = new \DateTime('now');
 	}
@@ -192,4 +193,51 @@ class Blog
 	{
 		$this->updatedDate = new \DateTime('now');
 	}
+
+    /**
+     * Set deleted
+     *
+     * @param boolean $deleted
+     * @return Blog
+     */
+    public function setDeleted($deleted)
+    {
+        $this->deleted = $deleted;
+    
+        return $this;
+    }
+
+    /**
+     * Get deleted
+     *
+     * @return boolean 
+     */
+    public function getDeleted()
+    {
+        return $this->deleted;
+    }
+    
+    
+    public function getRoles()
+    {
+        return array('ROLE_USER');
+    }
+    
+    public function getSalt()
+    {
+        
+    }
+    public function getPassword()
+    {
+        
+    }
+    public function getUsername()
+    {
+        
+    }
+    public function eraseCredentials()
+    {
+        
+    }
+
 }

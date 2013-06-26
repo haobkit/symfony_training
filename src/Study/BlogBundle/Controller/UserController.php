@@ -7,7 +7,7 @@ use Study\BlogBundle\Entity\Blog;
 use Study\BlogBundle\Form\Type\BlogType;
 use Symfony\Component\HttpFoundation\Request;
 
-class BlogController extends Controller
+class UserController extends Controller
 {
     public function indexAction()
     {
