@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="blog")
+ * @ORM\Table(name="post")
  */
 
 class Post
@@ -175,6 +175,16 @@ class Post
         $this->shortDescription = $shortDescription;
     
         return $this;
+    }
+	
+    /**
+     * Get shortDescription
+     *
+     * @return string 
+     */
+    public function getShortDescription()
+    {
+        return $this->shortDescription;
     }
 
     /**

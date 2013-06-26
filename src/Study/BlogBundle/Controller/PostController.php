@@ -14,9 +14,9 @@ class PostController extends Controller
 		$repository = $this->getDoctrine()
 				->getRepository('StudyBlogBundle:Post');
 		$posts = $repository->findAll();
-		echo '<pre>';
-		\Doctrine\Common\Util\Debug::dump($posts);
-		echo '</pre>';
+//		echo '<pre>';
+//		\Doctrine\Common\Util\Debug::dump($posts);
+//		echo '</pre>';
         return $this->render('StudyBlogBundle:Post:index.html.twig', array(
 			'posts'	=> $posts,
 		));

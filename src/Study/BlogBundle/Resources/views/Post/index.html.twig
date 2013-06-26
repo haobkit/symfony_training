@@ -1,19 +1,17 @@
 {% extends "StudyBlogBundle::layout.html.twig" %}
-
+{% block title %} Post {% endblock %}
 {% block main_content %}
 	<h1>Post Page</h1>
-	<pre>
-	{#{ dump(posts) }#}
-	</pre>
-	<a href="{{ path('study_add_post') }}" class="add_blog">Add Post</a>
+	<a href="{{ path('study_add_post') }}" class="add_blog btn btn-success">Add Post</a>
 	<ul class="list_blog">
 		{% for post in posts %}
 			<li>
 				<h2>{{ post.title }}</h2>
-				<p>{{ post.createdDate.date|date() }}</p>
-				<p>{{ post.updatedDate.date|date() }}</p>
-				<a href="{{ path('study_edit_post',{'id': post.id}) }}" class="edit_blog">Edit</a>
-				<a href="{{ path('study_delete_post',{'id': post.id}) }}" class="delete_blog">Delete</a>
+                                <p>Category: {{ post.blog.title }}</p>
+				<p>Created Date: {{ post.createdDate.date|date() }}</p>
+				<p>Updated Date: {{ post.updatedDate.date|date() }}</p>
+				<a href="{{ path('study_edit_post',{'id': post.id}) }}" class="edit_blog btn btn-primary">Edit</a>
+				<a href="{{ path('study_delete_post',{'id': post.id}) }}" class="delete_blog btn btn-danger">Delete</a>
 			</li>
 		{% endfor %}
 	</ul>

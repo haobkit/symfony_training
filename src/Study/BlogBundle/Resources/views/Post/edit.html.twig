@@ -1,8 +1,5 @@
 {% extends "StudyBlogBundle::layout.html.twig" %}
-
+{% block title %} Edit Post {% endblock %}
 {% block main_content %}
-	<pre>
-	{#{ dump(blog) }#}
-	</pre>
 	{{ form(form) }}
 {% endblock %}

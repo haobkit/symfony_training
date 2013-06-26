@@ -21,7 +21,9 @@ class PostType extends AbstractType
 		$builder->add('author');
 		$builder->add('createdDate', 'date');
 		$builder->add('updatedDate', 'date');
-		$builder->add('save', 'submit');
+		$builder->add('save', 'submit', array(
+            'attr'  => array('class' => 'btn btn-success'),
+        ));
 	}
 	
 	public function getName()
