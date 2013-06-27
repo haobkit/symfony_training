@@ -80,7 +80,8 @@ class BlogController extends Controller
 		//$em->remove($oBlog);
         $oBlog->setDeleted($deleted = true);
 		$em->flush();
-		
+		//$this->get( 'session' )->getFlashBag()->add('success', 'Delete successfully ' . $oBlog->getTitle() );
+				
 		return $this->redirect($this->generateUrl('study_home_blog'));
 	}
 }

@@ -1,0 +1,16 @@
+{% extends "StudyBlogBundle::layout.html.twig" %}
+{% block title %} User {% endblock %}
+{% block main_content %}
+	<h1>User Page</h1>
+	<a href="{{ path('study_add_user') }}" class="add_blog btn btn-success">Add User</a>
+	<ul class="list_user">
+		{% for user in users %}
+			<li>
+				<h2>{{ user.username }}</h2>
+				<p>{{ user.email }}</p>
+				<a href="{{ path('study_edit_user',{'id': user.id}) }}" class="edit_user btn btn-primary">Edit</a>
+				<a href="{{ path('study_delete_user',{'id': user.id}) }}" class="delete_user btn btn-danger">Delete</a>
+			</li>
+		{% endfor %}
+	</ul>
+{% endblock %}

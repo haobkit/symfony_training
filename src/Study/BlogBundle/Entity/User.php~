@@ -4,6 +4,7 @@ namespace Study\BlogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder;
 
 /**
@@ -32,7 +33,7 @@ class User implements UserInterface, \Serializable
    private $salt;
    
    /**
-    * @ORM\Column(type="string", length=255)
+    * @ORM\Column(type="string", length=40)
     */
    private $password;
    
@@ -54,7 +55,7 @@ class User implements UserInterface, \Serializable
 
    public function __construct() {
 	   $this->isActive = true;
-	   $this->salt = md5(uniqid(null, true));
+	   $this->salt = '';
    }
    
    /**
@@ -82,7 +83,7 @@ class User implements UserInterface, \Serializable
     * @inheritDoc
     */
    public function getRoles() {
-	   return array($this->getRole());
+	   return array('ROLE_USER');
    }
    
    /**
@@ -163,7 +164,7 @@ class User implements UserInterface, \Serializable
     public function setPassword($password)
     {
 		$encoder = new MessageDigestPasswordEncoder();
-        $password = $encoder->encodePassword($password, $this->getSalt());
+        $password = $encoder->encodePassword($password, '');
         $this->password = $password;
     
         return $this;
@@ -213,28 +214,5 @@ class User implements UserInterface, \Serializable
     public function getIsActive()
     {
         return $this->isActive;
-    }
-
-    /**
-     * Set role
-     *
-     * @param string $role
-     * @return User
-     */
-    public function setRole($role)
-    {
-        $this->role = $role;
-    
-        return $this;
-    }
-
-    /**
-     * Get role
-     *
-     * @return string 
-     */
-    public function getRole()
-    {
-        return $this->role;
     }
 }

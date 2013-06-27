@@ -3,8 +3,8 @@
 namespace Study\BlogBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Study\BlogBundle\Entity\Blog;
-use Study\BlogBundle\Form\Type\BlogType;
+use Study\BlogBundle\Entity\User;
+use Study\BlogBundle\Form\Type\UserType;
 use Symfony\Component\HttpFoundation\Request;
 
 class UserController extends Controller
@@ -12,29 +12,29 @@ class UserController extends Controller
     public function indexAction()
     {
 		$repository = $this->getDoctrine()
-				->getRepository('StudyBlogBundle:Blog');
-		$blogs = $repository->findBy(array('deleted' => false));
+				->getRepository('StudyBlogBundle:User');
+		$oUsers = $repository->findAll();
 		//var_dump($blogs);
-        return $this->render('StudyBlogBundle:Blog:index.html.twig', array(
-			'blogs'	=> $blogs
+        return $this->render('StudyBlogBundle:User:index.html.twig', array(
+			'users'	=> $oUsers
 		));
     }
 	
 	public function createAction(Request $request)
 	{
-		$oBlog = new Blog();
-		$form = $this->createForm(new BlogType(), $oBlog);
+		$oUser = new User();
+		$form = $this->createForm(new UserType(), $oUser);
 		$form->handleRequest($request);
 		
 		if ($form->isValid()) {
 			$em = $this->getDoctrine()->getManager();
-			$em->persist($oBlog);
+			$em->persist($oUser);
 			$em->flush();
 
-			return $this->redirect($this->generateUrl('study_home_blog'));
+			return $this->redirect($this->generateUrl('study_home_user'));
 		}
 
-		return $this->render('StudyBlogBundle:Blog:add.html.twig', array(
+		return $this->render('StudyBlogBundle:User:add.html.twig', array(
             'form' => $form->createView(),
         ));
 	}
@@ -42,25 +42,25 @@ class UserController extends Controller
 	public function editAction($id, Request $request)
 	{
 		$repository = $this->getDoctrine()
-				->getRepository('StudyBlogBundle:Blog');
-		$oBlog = $repository->find($id);
-		if (!$oBlog) {
+				->getRepository('StudyBlogBundle:User');
+		$oUser = $repository->find($id);
+		if (!$oUser) {
 			throw $this->createNotFoundException(
-					'No product found for id ' . $id
+					'No User found for id ' . $id
 			);
 		}
 		
-		$form = $this->createForm(new BlogType(), $oBlog);
+		$form = $this->createForm(new UserType(), $oUser);
 		$form->handleRequest($request);
 		
 		if ($form->isValid()) {
 			$em = $this->getDoctrine()->getManager();
 			$em->flush();
 
-			return $this->redirect($this->generateUrl('study_home_blog'));
+			return $this->redirect($this->generateUrl('study_home_user'));
 		}
 		
-		return $this->render('StudyBlogBundle:Blog:edit.html.twig',array(
+		return $this->render('StudyBlogBundle:User:edit.html.twig',array(
 			'form'  => 	$form->createView()
 		));
 	}
