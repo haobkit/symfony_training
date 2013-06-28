@@ -3,3 +3,5 @@
 06/28/2013 11:52:58 am : Delete a Blog Blog 1
 Europe/Berlin : Add a Blog 2
 06/28/2013 12:21:39 pm : Delete a Blog 2
+
+C:\Program Files (x86)\ImageMagick-6.8.3-Q16;C:\Program Files (x86)\SenchaSDKTools-2.0.0-beta3;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;%SystemRoot%\system32;%SystemRoot%;%SystemRoot%\System32\Wbem;%SYSTEMROOT%\System32\WindowsPowerShell\v1.0\;C:\Program Files\TortoiseGit\bin;D:\xampp\php;D:\xampp\mysql\bin;C:\Program Files\Java\jre7\bin;D:\ProgramFiles\mongodb\bin;C:\Program Files\Java\jre7\bin;C:\Program Files (x86)\Graphviz 2.28\bin;C:\ProgramData\Composer\bin;C:\Program Files\nodejs\;C:\Program Files (x86)\Git\bin;C:\Program Files (x86)\Git\cmd;C:\ProgramData\Composer\bin
