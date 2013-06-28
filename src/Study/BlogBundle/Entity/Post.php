@@ -3,6 +3,8 @@
 namespace Study\BlogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * @ORM\Entity
@@ -55,6 +57,17 @@ class Post
 	 */
 	protected $author;
 	
+		
+	/**
+	 * @ORM\Column(name="post_image",type="string", length=255, nullable=true)
+	 */
+	public $postImage;
+	
+	/**
+	 * @Assert\File(maxSize="6000000")
+	 */
+	private $file;
+
 	/**
 	 *
 	 * @ORM\Column(name="created_date", type="datetime")
@@ -67,6 +80,7 @@ class Post
 	 */
 	protected $updatedDate;
 	
+	private $temp;
 	/**
 	 * Get id
 	 */
@@ -249,5 +263,143 @@ class Post
 	public function preUpdate()
 	{
 		$this->updatedDate = new \DateTime();
+	}
+	
+	/**
+	 * @param: no param
+	 * @return absolute path
+	 */
+	public function getAbsolutePath()
+	{
+		return null === $this->path
+				? null
+				: $this->getUploadRootDir().'/'.$this->path;
+	}
+	
+	public function getWebPath()
+	{
+		return null===$this->path
+				? null 
+				: $this->getUploadDir().'/'.$this->path;
+	}
+	
+	/**
+	 * 
+	 * @return path
+	 */
+	protected function getUploadRootDir()
+	{
+		//the absolute directory path where uploaded
+		// documents should be saved
+		return __DIR__.'/../../../../web/'.$this->getUploadDir();
+	}
+	
+	/**
+	 * 
+	 * @return path Upload
+	 */
+	protected function getUploadDir()
+	{
+		// get rid of the __DIR__ so it doesn't scew up
+		// When displaying uploaded doc/image in the view
+		return 'uploads/documents';
+	}
+
+    /**
+     * Set postImage
+     *
+     * @param string $postImage
+     * @return Post
+     */
+    public function setPostImage($postImage)
+    {
+        $this->postImage = $postImage;
+    
+        return $this;
+    }
+
+    /**
+     * Get postImage
+     *
+     * @return string 
+     */
+    public function getPostImage()
+    {
+        return $this->postImage;
+    }
+	
+	/**
+	 * Sets file
+	 * 
+	 * @param UploadedFile $file
+	 * @author: Harrison
+	 */
+	public function setFile(UploadedFile $file = null)
+	{
+		$this->file = $file;
+		if(isset($this->postImage)) {
+			$this->temp = $this->postImage;
+			$this->postImage = null;
+		}
+		else {
+			$this->postImage = 'initial';
+		}
+	}
+	
+	/**
+	 * Get file
+	 * 
+	 * @return UploadedFile
+	 * @author: Harrison
+	 */
+	public function getFile()
+	{
+		return $this->file;
+	}
+	
+	/**
+	 * @ORM\PrePersist()
+	 * @ORM\PreUpdate()
+	 */
+	public function preUpload()
+	{
+		if(null !== $this->getFile()) {
+			$filename =  sha1(uniqid(mt_rand(),true));
+			$this->postImage = $filename.'.'.$this->getFile()->guessExtension();
+		}
+	}
+
+		/**
+	 * @ORM\PostPersist()
+	 * @ORM\PostUpdate()
+	 * Get file upload
+	 * @author: Harrison
+	 */
+	public function upload()
+	{
+		// the file property can be empty if the field is not required
+		if (null === $this->getFile()) {
+			return;
+		}
+
+		$this->getFile()->move($this->getUploadRootDir(),$this->postImage);
+
+		if(isset($this->temp)) {
+			unlink($this->getUploadRootDir().'/'.$this->temp);
+			$this->temp = null;
+		}
+
+		// clean up the file property as you won't need it anymore
+		$this->file = null;
+	}
+	
+	/**
+	 * @ORM\PostRemove()
+	 */
+	public function removeUpload()
+	{
+		if($file = $this->getAbsolutePath()) {
+			unlink($file);
+		}
 	}
 }

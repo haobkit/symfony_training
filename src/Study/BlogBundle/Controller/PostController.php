@@ -30,6 +30,9 @@ class PostController extends Controller
 		
 		if ($form->isValid()) {
 			$em = $this->getDoctrine()->getManager();
+			
+			//$oPost->upload();
+			
 			$em->persist($oPost);
 			$em->flush();
 

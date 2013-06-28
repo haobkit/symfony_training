@@ -1,6 +1,6 @@
 <?php
 
-namespace Study\BlogBundle\Entity;
+namespace Study\BlogBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 
@@ -13,9 +13,9 @@ use Doctrine\ORM\EntityRepository;
 class BlogRepository extends EntityRepository
 {
 	 public function findAllOrderedByName()
-    {
+     {
         return $this->getEntityManager()
             ->createQuery('SELECT p FROM StudyBlogBundle:Blog p ORDER BY p.title ASC')
             ->getResult();
-    }
+     }
 }

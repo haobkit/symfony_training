@@ -1,7 +1,7 @@
 parameters:
-#    study_blog.example.class: Study\BlogBundle\Example
+    study_blog.log.class: Study\BlogBundle\Service\Log
 
 services:
-#    study_blog.example:
-#        class: %study_blog.example.class%
+    study_blog_log:
+        class: %study_blog.log.class%
 #        arguments: [@service_id, "plain_value", %parameter%]

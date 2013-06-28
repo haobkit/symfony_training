@@ -25,6 +25,7 @@ class PostType extends AbstractType
 		$builder->add('shortDescription', 'textarea');
 		$builder->add('fullDescription', 'ckeditor');
 		$builder->add('viewed', 'integer');
+		$builder->add('file','file');
 		$builder->add('author');
 		$builder->add('createdDate', 'datetime');
 		$builder->add('updatedDate', 'datetime');

@@ -5,11 +5,14 @@ namespace Study\BlogBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder;
+use Symfony\Bridge\Doctrine\Validator\Constraints as DoctrineAssert;
 
 /**
- * @ORM\Entity(repositoryClass="Study\BlogBundle\Entity\UserRepository")
+ * @ORM\Entity(repositoryClass="Study\BlogBundle\Repository\UserRepository")
  * @ORM\Table(name="user")
  * @ORM\HasLifecycleCallbacks()
+ * @DoctrineAssert\UniqueEntity(fields="username", message="Username is already exist")
+ * @DoctrineAssert\UniqueEntity(fields="email", message="Email is already exist")
  */
 
 class User implements UserInterface, \Serializable

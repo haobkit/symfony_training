@@ -1,0 +1,5 @@
+Study\BlogBundle\Entity\Post:
+    properties:
+        file:
+            - File:
+                maxSize: 6000000

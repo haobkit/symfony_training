@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Study\BlogBundle\Entity\Blog;
 use Study\BlogBundle\Form\Type\BlogType;
 use Symfony\Component\HttpFoundation\Request;
+use Study\BlogBundle\Service\Log;
 
 class BlogController extends Controller
 {
@@ -30,7 +31,11 @@ class BlogController extends Controller
 			$em = $this->getDoctrine()->getManager();
 			$em->persist($oBlog);
 			$em->flush();
-
+			//$oLog = new Log();
+			$oLog = $this->get('study_blog_log');
+			$sMessage = 'Add a ' . $oBlog->getTitle();
+			$oLog->writelog($sMessage);
+			
 			return $this->redirect($this->generateUrl('study_home_blog'));
 		}
 
@@ -80,6 +85,10 @@ class BlogController extends Controller
 		//$em->remove($oBlog);
         $oBlog->setDeleted($deleted = true);
 		$em->flush();
+		
+		$oLog = $this->get('study_blog_log');
+		$sMessage = 'Delete a ' . $oBlog->getTitle();
+		$oLog->writelog($sMessage);
 		//$this->get( 'session' )->getFlashBag()->add('success', 'Delete successfully ' . $oBlog->getTitle() );
 				
 		return $this->redirect($this->generateUrl('study_home_blog'));

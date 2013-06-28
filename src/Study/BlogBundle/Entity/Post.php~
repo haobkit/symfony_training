@@ -3,6 +3,8 @@
 namespace Study\BlogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * @ORM\Entity
@@ -55,6 +57,17 @@ class Post
 	 */
 	protected $author;
 	
+		
+	/**
+	 * @ORM\Column(name="post_image",type="string", length=255, nullable=true)
+	 */
+	public $postImage;
+	
+	/**
+	 * @Assert\File(maxSize="6000000")
+	 */
+	private $file;
+
 	/**
 	 *
 	 * @ORM\Column(name="created_date", type="datetime")
@@ -249,5 +262,45 @@ class Post
 	public function preUpdate()
 	{
 		$this->updatedDate = new \DateTime();
+	}
+	
+	/**
+	 * @param: no param
+	 * @return absolute path
+	 */
+	public function getAbsolutePath()
+	{
+		return null === $this->path
+				? null
+				: $this->getUploadRootDir().'/'.$this->path;
+	}
+	
+	public function getWebPath()
+	{
+		return null===$this->path
+				? null 
+				: $this->getUploadDir().'/'.$this->path;
+	}
+	
+	/**
+	 * 
+	 * @return path
+	 */
+	protected function getUploadRootDir()
+	{
+		//the absolute directory path where uploaded
+		// documents should be saved
+		return __DIR__.'/../../../../web/'.$this->getUploadDir();
+	}
+	
+	/**
+	 * 
+	 * @return path Upload
+	 */
+	protected function getUploadDir()
+	{
+		// get rid of the __DIR__ so it doesn't scew up
+		// When displaying uploaded doc/image in the view
+		return 'uploads/documents';
 	}
 }
