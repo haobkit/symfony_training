@@ -30,6 +30,13 @@ class Blog
 	 * @ORM\Column(type="text")
 	 * 
 	 */
+	/**
+	 *
+	 * @ORM\Column(type="string", length = 100)
+	 */
+	protected $slug;
+
+
 	protected $description;
 	
 	/**
@@ -215,5 +222,28 @@ class Blog
     public function getDeleted()
     {
         return $this->deleted;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     * @return Blog
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+    
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string 
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 }

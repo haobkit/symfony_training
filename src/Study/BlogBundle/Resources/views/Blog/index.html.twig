@@ -3,6 +3,8 @@
 {% block main_content %}
 	<h1>Blog Page</h1>
 	<a href="{{ path('study_add_blog') }}" class="add_blog btn btn-success">Add Blog</a>
+	{{ dump(aTestFilter) }}
+	<h2>aaa{{ in_array_f('hao',aTestFilter) }}</h2>
 	<ul class="list_blog">
 		{% for blog in blogs %}
 			<li>

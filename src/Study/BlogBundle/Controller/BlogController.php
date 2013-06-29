@@ -15,9 +15,11 @@ class BlogController extends Controller
 		$repository = $this->getDoctrine()
 				->getRepository('StudyBlogBundle:Blog');
 		$blogs = $repository->findBy(array('deleted' => false));
+		$aTestFilter = array('hao', 'hoang', 'hieu', 'hau');
 		//var_dump($blogs);
         return $this->render('StudyBlogBundle:Blog:index.html.twig', array(
-			'blogs'	=> $blogs
+			'blogs'	=> $blogs,
+			'aTestFilter'	=> $aTestFilter,
 		));
     }
 	
