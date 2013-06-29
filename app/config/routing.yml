@@ -1,4 +1,10 @@
+login_admin:
+    pattern:   /login
+    defaults:  { _controller: StudyBlogBundle:Security:login }
+
+login_check_admin:
+    pattern:   /login_check
+   
 study_blog:
     resource: "@StudyBlogBundle/Resources/config/routing.yml"
     prefix:   /
-
